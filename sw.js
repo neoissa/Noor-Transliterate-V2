@@ -1,4 +1,4 @@
-const CACHE_NAME = 'noor-trans-v4';
+const CACHE_NAME = 'noor-trans-v5';
 const LOCAL_ASSETS = [
     './',
     './index.html',
