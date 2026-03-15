@@ -14,11 +14,11 @@ async function fetchDailyAyah(forceNew) {
     }
     try {
         const num = Math.floor(Math.random() * 6236) + 1;
-        const r = await fetch(`https://api.alquran.cloud/v1/ayah/${num}/editions/quran-uthmani,en.sahih`);
+        const r = await fetch(`https://api.alquran.cloud/v1/ayah/${num}/editions/quran-uthmani,en.transliteration,en.sahih`);
         if (!r.ok) throw new Error('API request failed');
         const d = await r.json();
         if (d.code === 200) {
-            _dailyAyahData = { arabic: d.data[0].text, translation: d.data[1].text, surah: d.data[0].surah.englishName, number: d.data[0].surah.number, ayah: d.data[0].numberInSurah };
+            _dailyAyahData = { arabic: d.data[0].text, transliteration: d.data[1].text, translation: d.data[2].text, surah: d.data[0].surah.englishName, number: d.data[0].surah.number, ayah: d.data[0].numberInSurah };
             sessionStorage.setItem('daily_ayah', JSON.stringify(_dailyAyahData));
             displayDailyAyah(_dailyAyahData);
         }
@@ -38,7 +38,7 @@ function loadAyahIntoTransliterator() {
     translationContainer.classList.remove('hidden');
     outputTranslation.innerText = _dailyAyahData.translation;
     outputArabicEditable.value = _dailyAyahData.arabic;
-    output1.value = performFormalTransliteration(_dailyAyahData.arabic);
+    output1.value = _dailyAyahData.transliteration || performFormalTransliteration(_dailyAyahData.arabic);
     outputArabizi.value = reverseTransliterate(_dailyAyahData.arabic);
     _currentQuranRef = `${_dailyAyahData.number}:${_dailyAyahData.ayah}`;
     document.getElementById('quranAudioBtn').classList.remove('hidden');
