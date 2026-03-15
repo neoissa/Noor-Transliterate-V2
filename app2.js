@@ -395,6 +395,30 @@ function installPWA() { if (!_deferredPrompt) return; _deferredPrompt.prompt(); 
 function dismissInstall() { document.getElementById('installBanner').classList.add('hidden'); }
 
 // =====================================================================
+// YAMLI SMART ARABIC KEYBOARD INTEGRATION
+// =====================================================================
+let yamliReady = false;
+function initYamli() {
+    if (typeof Yamli === 'object') {
+        try {
+            if (Yamli.init({ uiLanguage: 'en', startMode: 'onOrUserDefault' })) {
+                yamliReady = true;
+            }
+        } catch (e) { console.log('Yamli init failed:', e.message); }
+    }
+}
+function enableYamliOnInput() {
+    if (yamliReady) {
+        try { Yamli.yamlify('mainInput', { settingsPlacement: 'inside' }); } catch (e) { console.log('Yamli yamlify failed:', e.message); }
+    }
+}
+function disableYamliOnInput() {
+    if (yamliReady) {
+        try { Yamli.deyamlify('mainInput'); } catch (e) { console.log('Yamli deyamlify failed:', e.message); }
+    }
+}
+
+// =====================================================================
 // MODE & LIFECYCLE
 // =====================================================================
 function setMode(mode) {
@@ -406,11 +430,13 @@ function setMode(mode) {
     mainInput.style.textAlign = isArabizi ? 'left' : 'right';
     mainInput.setAttribute('dir', isArabizi ? 'ltr' : 'rtl');
     inputLabel.textContent = isArabizi ? 'Arabizi Input (Latin → Arabic)' : mode === 'quran' ? 'Quran Arabic' : 'Input (Arabic / Arabizi)';
+    if (isArabizi) enableYamliOnInput(); else disableYamliOnInput();
     hideSuggestions();
     process();
 }
 
 window.addEventListener('load', () => {
+    initYamli();
     initKeyboard();
     fetchQuranMetadata();
     fetchDailyAyah();
@@ -460,8 +486,8 @@ mainInput.addEventListener('input', () => {
     document.getElementById('quranAudioBtn').classList.add('hidden');
     process();
     autoExpand(mainInput);
-    // Show suggestions in arabizi mode
-    if (currentMode === 'arabizi' && suggestionsEnabled) {
+    // Show local suggestions only in arabizi mode when Yamli is not available
+    if (currentMode === 'arabizi' && suggestionsEnabled && !yamliReady) {
         showSuggestions(mainInput.value);
     } else {
         hideSuggestions();

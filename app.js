@@ -243,6 +243,7 @@ const chatToAr = {
     "5": "خ", "sh": "ش", "ch": "ش", "4": "ش", "th": "ث", "ee": "ي",
     "oo": "و", "ou": "و", "uu": "و", "aa": "ا", "2": "أ", "3": "ع",
     "6": "ط", "7": "ح", "8": "ق", "9": "ص", "a": "ا", "b": "ب", "t": "ت",
+    "p": "ب", "g": "ج", "v": "ف", "x": "خ",
     "q": "ق", "j": "ج", "d": "د", "r": "ر", "z": "ز", "s": "س", "f": "ف", "k": "ك",
     "l": "ل", "m": "م", "n": "ن", "h": "ه", "w": "و", "y": "ي",
     "i": "ي", "u": "و", "e": "ا", "o": "و"
@@ -313,12 +314,17 @@ function reverseTransliterate(text) {
 }
 
 function convertWordToArabic(word) {
-    // Check custom dictionary first
+    const lw = word.toLowerCase();
+    // Check custom dictionary first, then embedded dictionary
     const custom = getCustomDict();
-    if (custom[word.toLowerCase()]) return custom[word.toLowerCase()];
+    if (custom[lw]) return custom[lw];
+    if (embeddedDictionary[lw]) return embeddedDictionary[lw];
     let w = '', j = 0;
     const sk = Object.keys(chatToAr).sort((a, b) => b.length - a.length);
-    if (word.startsWith('al-')) { w += 'ال'; j = 3; }
+    if (word.startsWith('al-') || word.startsWith('ar-') || word.startsWith('as-') || word.startsWith('an-') || word.startsWith('at-') || word.startsWith('ad-') || word.startsWith('az-') || word.startsWith('ash-') || word.startsWith('adh-')) {
+        const prefixLen = word.startsWith('ash-') || word.startsWith('adh-') ? 4 : 3;
+        w += 'ال'; j = prefixLen;
+    }
     while (j < word.length) { let m = false; for (const k of sk) { if (word.substring(j, j + k.length) === k) { w += chatToAr[k]; j += k.length; m = true; break; } } if (!m) { w += word[j]; j++; } }
     return w;
 }
@@ -332,10 +338,16 @@ function process() {
             output1.value = performFormalTransliteration(text);
         }
     } else {
-        let ab = '';
-        text.split(/(\s+)/).forEach(p => { if (!p) return; if (/\s+/.test(p)) { ab += p; return; } ab += convertWordToArabic(p.toLowerCase()); });
-        outputArabicEditable.value = ab;
-        output1.value = performFormalTransliteration(ab);
+        // Arabizi mode: check if Yamli has already converted input to Arabic
+        if (/[\u0600-\u06FF]/.test(text)) {
+            outputArabicEditable.value = text;
+            output1.value = performFormalTransliteration(text);
+        } else {
+            let ab = '';
+            text.split(/(\s+)/).forEach(p => { if (!p) return; if (/\s+/.test(p)) { ab += p; return; } ab += convertWordToArabic(p.toLowerCase()); });
+            outputArabicEditable.value = ab;
+            output1.value = performFormalTransliteration(ab);
+        }
     }
     outputArabizi.value = reverseTransliterate(outputArabicEditable.value);
     animateOutput();
