@@ -133,7 +133,87 @@ const reflectionDictionary = {
     "taqwa": "Root: W-Q-Y (وقى). God-consciousness, piety, inner shield.",
     "تقوى": "Root: W-Q-Y. The muttaqeen are the most honored in the sight of Allah (49:13).",
     "sabr": "Root: S-B-R (صبر). Patience, steadfastness. 'Indeed, Allah is with the patient.' (2:153)",
-    "الصبر": "Root: S-B-R. The Quran mentions sabr over 90 times."
+    "الصبر": "Root: S-B-R. The Quran mentions sabr over 90 times.",
+    // Expanded reflection entries
+    "assalamualaikum": "Root: S-L-M. The Islamic greeting of peace — 'Peace be upon you.' A supplication for safety and wholeness.",
+    "السلام عليكم": "Root: S-L-M. The greeting the Prophet ﷺ taught, carrying blessings of peace.",
+    "mashallah": "Compound: Mā (what) + Shā'a (willed) + Allāh. An expression of wonder at Allah's will and decree.",
+    "ما شاء الله": "An expression of admiration attributed to Allah's will, often used to ward off the evil eye.",
+    "inshallah": "Compound: In (if) + Shā'a (willed) + Allāh. Acknowledging that all future events depend on Allah's will.",
+    "إن شاء الله": "Mentioned in Quran (18:23-24). A reminder that nothing happens except by Allah's permission.",
+    "astaghfirullah": "Root: Gh-F-R (غفر). To seek Allah's forgiveness and covering of sins.",
+    "استغفر الله": "Root: Gh-F-R. Istighfar — seeking divine forgiveness. A practice of all Prophets.",
+    "jazakallah": "Root: J-Z-Y (جزى). May Allah reward you. A beautiful expression of gratitude in Islam.",
+    "barakah": "Root: B-R-K (برك). Divine blessing, increase, and abundance from Allah.",
+    "بركة": "Root: B-R-K. Barakah brings growth and goodness from Allah. Related to Mubarak (blessed).",
+    "quran": "Root: Q-R-A (قرأ). The Recitation. The final scripture revealed to Prophet Muhammad ﷺ.",
+    "قرآن": "Root: Q-R-A. To recite, to read. The Quran is the most recited book in human history.",
+    "dua": "Root: D-ʿ-W (دعو). Supplication, calling upon Allah. 'Dua is the essence of worship.' (Hadith)",
+    "دعاء": "Root: D-ʿ-W. To call, to invoke. The believer's direct connection to Allah.",
+    "salat": "Root: S-L-W (صلو). Prayer, connection, link. The five daily prayers are the pillars of faith.",
+    "صلاة": "Root: S-L-W. The word implies both prayer and connection — linking the servant to the Creator.",
+    "zakat": "Root: Z-K-W (زكو). Purification and growth. Giving purifies both wealth and soul.",
+    "زكاة": "Root: Z-K-W. One of the five pillars of Islam — purifying wealth through charity.",
+    "hajj": "Root: H-J-J (حجج). Pilgrimage, to intend, to argue with proof. The journey to Allah's House.",
+    "حج": "Root: H-J-J. The annual pilgrimage to Makkah, one of the five pillars of Islam.",
+    "jannah": "Root: J-N-N (جنن). Paradise, garden — something hidden and lush. The ultimate reward.",
+    "جنة": "Root: J-N-N. That which is hidden — a garden of eternal bliss promised to the believers.",
+    "tawbah": "Root: T-W-B (توب). Repentance, to return to Allah. Allah loves those who repent (2:222).",
+    "توبة": "Root: T-W-B. To turn back. Surah At-Tawbah (Chapter 9) is named after this concept.",
+    "sunnah": "Root: S-N-N (سنن). Way, path, practice. The way of the Prophet ﷺ.",
+    "سنة": "Root: S-N-N. The established practice and example of Prophet Muhammad ﷺ.",
+    "hadith": "Root: H-D-Th (حدث). New saying, narration. Recorded sayings and actions of the Prophet ﷺ.",
+    "حديث": "Root: H-D-Th. A narrated tradition. The second source of Islamic guidance after the Quran.",
+    "shukr": "Root: Sh-K-R (شكر). Gratitude, thankfulness. 'If you are grateful, I will surely increase you.' (14:7)",
+    "شكر": "Root: Sh-K-R. Gratitude that is expressed through heart, tongue, and action.",
+    "huda": "Root: H-D-Y (هدي). Guidance, right direction. 'This is the Book in which there is no doubt, a guidance.' (2:2)",
+    "هدى": "Root: H-D-Y. Divine guidance that leads to the straight path.",
+    "ihsan": "Root: H-S-N (حسن). Excellence in worship — to worship Allah as if you see Him.",
+    "إحسان": "Root: H-S-N. The highest level of faith — doing beautiful deeds with awareness of Allah.",
+    "ikhlas": "Root: Kh-L-S (خلص). Sincerity, purity of intention. Surah Al-Ikhlas (Chapter 112).",
+    "إخلاص": "Root: Kh-L-S. Pure devotion to Allah alone, free from any associate.",
+    "ibrahim": "The father of Prophets. Known as Khalilullah (the Friend of Allah).",
+    "إبراهيم": "Prophet Ibrahim عليه السلام — mentioned 69 times in the Quran. Builder of the Kaaba.",
+    "musa": "Prophet Musa عليه السلام (Moses). The most mentioned prophet in the Quran (136 times).",
+    "موسى": "Root: M-W-S. The prophet who spoke directly with Allah (Kalimullah).",
+    "isa": "Prophet Isa عليه السلام (Jesus). Born of Maryam, the Messiah (Al-Masih).",
+    "عيسى": "The Messiah, son of Maryam. His return is a major sign of the Day of Judgment.",
+    "maryam": "The only woman mentioned by name in the Quran. A chapter (19) is named after her.",
+    "مريم": "The best of women. Chosen and purified above all women of the world (3:42).",
+    "yusuf": "Root: meaning 'Allah increases.' Prophet Yusuf's story in Surah 12 is called 'the best of stories.'",
+    "يوسف": "Prophet Yusuf عليه السلام — a symbol of beauty, patience, and God-given wisdom.",
+    "fatima": "Root: F-T-M (فطم). 'She who weans.' The beloved daughter of Prophet Muhammad ﷺ.",
+    "فاطمة": "The leader of the women of Paradise. Her name signifies one who is weaned from sin.",
+    "hasan": "Root: H-S-N. Beautiful, good, excellent. Grandson of the Prophet ﷺ.",
+    "حسن": "Root: H-S-N. Beauty and goodness. The beloved grandson of the Messenger of Allah ﷺ.",
+    "allahuakbar": "Allahu Akbar — Allah is the Greatest. The Takbir, used in prayer and daily life.",
+    "الله اكبر": "The declaration of Allah's greatness, spoken at the beginning of every prayer.",
+    "ar-raheem": "Root: R-H-M. The Most Merciful — specifically merciful to the believers.",
+    "al-malik": "Root: M-L-K (ملك). The King, The Sovereign. The absolute ruler of all creation.",
+    "al-quddus": "Root: Q-D-S (قدس). The Most Holy, The Pure. Free from all imperfection.",
+    "al-aziz": "Root: ʿ-Z-Z (عزز). The Almighty, The Invincible. None can overcome His power.",
+    "al-kareem": "Root: K-R-M (كرم). The Most Generous. His generosity encompasses all of creation.",
+    "al-wadood": "Root: W-D-D (ودد). The Most Loving. Allah's love is the purest and most complete.",
+    "al-ghafoor": "Root: Gh-F-R (غفر). The All-Forgiving. He covers and forgives sins completely.",
+    "al-hayy": "Root: H-Y-Y (حيي). The Ever-Living. The One who has eternal life.",
+    "al-qayyum": "Root: Q-W-M (قوم). The Self-Sustaining. The One who sustains all of creation.",
+    "an-noor": "Root: N-W-R. The Light. 'Allah is the Light of the heavens and the earth.' (24:35)",
+    "as-samad": "Root: S-M-D (صمد). The Eternal, The Absolute. The One upon whom all depend.",
+    "al-haqq": "Root: H-Q-Q (حقق). The Truth, The Reality. What is real and permanent.",
+    "at-tawwab": "Root: T-W-B. The Ever-Accepting of Repentance. He turns back to those who turn to Him.",
+    "al-aleem": "Root: ʿ-L-M (علم). The All-Knowing. His knowledge encompasses everything.",
+    "tabarakallah": "Root: B-R-K. Blessed is Allah — an expression of awe at His blessings.",
+    "تبارك الله": "Root: B-R-K. Blessed is Allah — acknowledging the abundance of His blessings.",
+    "laahawla": "Root: H-W-L + Q-W-W. There is no power or might except with Allah. The Hawqala.",
+    "hasbunallah": "Root: H-S-B. Allah is sufficient for us. Said by Ibrahim عليه السلام when thrown into fire.",
+    "innalillahi": "Inna lillahi wa inna ilayhi raji'un — Indeed we belong to Allah and to Him we return (2:156).",
+    "salawat": "Root: S-L-W. Blessings upon the Prophet ﷺ. Commanded in Quran (33:56).",
+    "shahadah": "Root: Sh-H-D (شهد). The testimony of faith — the foundation of Islam.",
+    "kalimah": "Root: K-L-M (كلم). Word, statement. La ilaha illAllah — the best of all words.",
+    "jibreel": "The angel Gabriel — the trustworthy spirit who delivered the Quran to Muhammad ﷺ.",
+    "fiqh": "Root: F-Q-H (فقه). Deep understanding of Islamic jurisprudence and law.",
+    "akhira": "Root: A-Kh-R (أخر). The Hereafter, the final life. The eternal abode after death.",
+    "sawm": "Root: S-W-M (صوم). Fasting — abstaining for the sake of Allah. One of the five pillars."
 };
 
 // =====================================================================
@@ -282,10 +362,36 @@ function autoCorrectText() {
 }
 
 function localReflectText() {
-    const input = mainInput.value.toLowerCase().trim(); if (!input) return;
-    let r = 'No specific linguistic root found. Try words like "Allah", "Bismillah", "Salam", "Ar-Rahman", or any of the 99 Names.';
-    for (const k in reflectionDictionary) { if (input.includes(k.toLowerCase())) { r = reflectionDictionary[k]; break; } }
+    const input = mainInput.value.trim(); if (!input) return;
+    const inputLower = input.toLowerCase();
+    let results = [];
+    // Check for full input match
+    for (const k in reflectionDictionary) {
+        if (inputLower === k.toLowerCase() || input === k) {
+            results.push(reflectionDictionary[k]);
+            break;
+        }
+    }
+    // Check for partial matches (individual words)
+    if (results.length === 0) {
+        const words = inputLower.split(/\s+/);
+        for (const w of words) {
+            for (const k in reflectionDictionary) {
+                if (w === k.toLowerCase() || inputLower.includes(k.toLowerCase())) {
+                    results.push(`**${k}**: ${reflectionDictionary[k]}`);
+                    break;
+                }
+            }
+        }
+    }
+    let r;
+    if (results.length > 0) {
+        r = results.join('\n\n');
+    } else {
+        r = 'No specific linguistic root found for "' + input + '". Try words like "Allah", "Bismillah", "Salam", "Ar-Rahman", "Quran", "Sabr", "Taqwa", or any of the 99 Names of Allah.';
+    }
     aiInsightsContent.innerText = r; aiInsightsContainer.classList.remove('hidden');
+    aiInsightsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // =====================================================================
@@ -318,11 +424,19 @@ function startVoiceInput() {
 // SHARE & COPY
 // =====================================================================
 async function shareContent() {
-    const ar = outputArabicEditable.value.trim(), tr = output1.value.trim();
+    const ar = outputArabicEditable.value.trim(), tr = output1.value.trim(), abz = document.getElementById('outputArabizi').value.trim();
     if (!ar || tr === 'Waiting...') { showToast('⚠️ Nothing to share'); return; }
-    const st = `${ar}\n${tr}\n\n— Shared via Noor Transliterate`;
+    const st = `📖 *Arabic:*\n${ar}\n\n🔤 *Transliteration:*\n${tr}` + (abz ? `\n\n💬 *Arabizi:*\n${abz}` : '') + `\n\n— Shared via Noor Transliterate 🌟`;
     if (navigator.share) { try { await navigator.share({ title: 'Noor Transliterate', text: st }); } catch (e) { if (e.name !== 'AbortError') copyFB(st); } }
     else copyFB(st);
+}
+
+function shareViaWhatsApp() {
+    const ar = outputArabicEditable.value.trim(), tr = output1.value.trim(), abz = document.getElementById('outputArabizi').value.trim();
+    if (!ar || tr === 'Waiting...') { showToast('⚠️ Nothing to share'); return; }
+    const msg = `📖 *Arabic:*\n${ar}\n\n🔤 *Transliteration:*\n${tr}` + (abz ? `\n\n💬 *Arabizi:*\n${abz}` : '') + `\n\n— Shared via Noor Transliterate 🌟`;
+    const url = 'https://wa.me/?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
 }
 function copyFB(t) { navigator.clipboard.writeText(t).then(() => showToast('📋 Copied!')).catch(() => { const el = document.createElement('textarea'); el.value = t; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); showToast('📋 Copied!'); }); }
 function pasteText() { navigator.clipboard.readText().then(t => { mainInput.value += t; process(); }).catch(() => alert('Paste manually with Ctrl+V')); }
@@ -397,4 +511,105 @@ function renderHistory() {
         div.appendChild(delBtn);
         list.appendChild(div);
     });
+}
+
+// =====================================================================
+// SUGGESTIONS ENGINE
+// =====================================================================
+let suggestionsEnabled = true;
+function toggleSuggestionsSetting() {
+    suggestionsEnabled = document.getElementById('settingSuggestions').checked;
+    localStorage.setItem('noor_suggestions', suggestionsEnabled ? 'on' : 'off');
+    if (!suggestionsEnabled) hideSuggestions();
+}
+function toggleAutoSave() {
+    const on = document.getElementById('settingAutoSave').checked;
+    localStorage.setItem('noor_autosave', on ? 'on' : 'off');
+}
+function isAutoSaveEnabled() {
+    return localStorage.getItem('noor_autosave') !== 'off';
+}
+
+function getSuggestions(query) {
+    if (!query || query.length < 2) return [];
+    const q = query.toLowerCase();
+    const custom = getCustomDict();
+    const merged = { ...embeddedDictionary, ...custom };
+    const results = [];
+    for (const key in merged) {
+        if (key.toLowerCase().startsWith(q) || key.toLowerCase().includes(q)) {
+            results.push({ key: key, value: merged[key] });
+        }
+        if (results.length >= 8) break;
+    }
+    // Sort: exact prefix match first
+    results.sort((a, b) => {
+        const aStarts = a.key.toLowerCase().startsWith(q) ? 0 : 1;
+        const bStarts = b.key.toLowerCase().startsWith(q) ? 0 : 1;
+        return aStarts - bStarts;
+    });
+    return results;
+}
+
+function showSuggestions(query) {
+    const dropdown = document.getElementById('suggestionsDropdown');
+    if (!dropdown || !suggestionsEnabled) return;
+    if (!query || query.trim().length < 2) { hideSuggestions(); return; }
+    // Get last word being typed
+    const words = query.trim().split(/\s+/);
+    const lastWord = words[words.length - 1];
+    if (!lastWord || lastWord.length < 2) { hideSuggestions(); return; }
+    const suggestions = getSuggestions(lastWord);
+    if (suggestions.length === 0) { hideSuggestions(); return; }
+    dropdown.innerHTML = '';
+    suggestions.forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'px-4 py-3 cursor-pointer hover:bg-emerald-50 dark:hover:bg-slate-700 transition-all border-b border-slate-100 dark:border-slate-700 last:border-0 flex items-center justify-between gap-3';
+        const left = document.createElement('div');
+        left.className = 'flex flex-col';
+        const keySpan = document.createElement('span');
+        keySpan.className = 'text-sm font-bold text-emerald-700 dark:text-emerald-400';
+        keySpan.textContent = s.key;
+        const valSpan = document.createElement('span');
+        valSpan.className = 'text-lg arabic-text text-slate-800 dark:text-white';
+        valSpan.dir = 'rtl';
+        valSpan.textContent = s.value;
+        left.appendChild(keySpan);
+        left.appendChild(valSpan);
+        item.appendChild(left);
+        item.addEventListener('click', () => {
+            // Replace the last word with the selected suggestion
+            words[words.length - 1] = s.key;
+            mainInput.value = words.join(' ');
+            hideSuggestions();
+            process();
+            mainInput.focus();
+        });
+        dropdown.appendChild(item);
+    });
+    dropdown.classList.remove('hidden');
+}
+
+function hideSuggestions() {
+    const dropdown = document.getElementById('suggestionsDropdown');
+    if (dropdown) dropdown.classList.add('hidden');
+}
+
+// =====================================================================
+// SETTINGS MODAL
+// =====================================================================
+function toggleSettingsModal() {
+    const modal = document.getElementById('settingsModal');
+    if (modal) {
+        modal.classList.toggle('hidden');
+        // Sync settings state
+        const sfSlider = document.getElementById('settingsFontSlider');
+        const mainSlider = document.getElementById('fontSizeSlider');
+        if (sfSlider && mainSlider) sfSlider.value = mainSlider.value;
+        const stLang = document.getElementById('settingsTransLang');
+        const mainLang = document.getElementById('translationLang');
+        if (stLang && mainLang) stLang.value = mainLang.value;
+        const tj = document.getElementById('settingTajweed');
+        if (tj) tj.checked = document.getElementById('tajweedToggle').checked;
+    }
 }
