@@ -288,16 +288,88 @@ function setAccentTheme(name) {
 // =====================================================================
 function exportAsImage() {
     const card = document.getElementById('outputCard');
-    if (!card) return;
+    if (!card) { showToast('⚠️ No content to export'); return; }
     if (typeof html2canvas === 'undefined') { showToast('⚠️ Export library loading...'); return; }
+    const ar = outputArabicEditable.value.trim();
+    const tr = output1.value.trim();
+    if (!ar || tr === 'Waiting...') { showToast('⚠️ Nothing to export'); return; }
+    // Create a styled temporary div for a cleaner export
+    const exportDiv = document.createElement('div');
+    exportDiv.style.cssText = 'position:fixed;left:-9999px;top:0;padding:40px;background:linear-gradient(135deg,#f0fdf4,#d1fae5);border-radius:24px;width:600px;font-family:Inter,sans-serif;';
+    // Header
+    const header = document.createElement('div');
+    header.style.cssText = 'text-align:center;margin-bottom:24px;';
+    header.innerHTML = '<div style="font-size:24px;font-weight:900;color:#065f46;">🌟 Noor Transliterate</div><div style="font-size:11px;color:#6b7280;margin-top:4px;">Arabic Transliteration Tool</div>';
+    exportDiv.appendChild(header);
+    // Input section
+    const inputLabel = document.createElement('div');
+    inputLabel.style.cssText = 'font-size:10px;font-weight:900;color:#6b7280;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;';
+    inputLabel.textContent = 'Input';
+    exportDiv.appendChild(inputLabel);
+    const inputBox = document.createElement('div');
+    inputBox.style.cssText = 'background:white;padding:16px;border-radius:16px;font-size:22px;direction:rtl;text-align:right;margin-bottom:20px;border:1px solid #d1d5db;color:#1e293b;';
+    inputBox.textContent = mainInput.value.trim();
+    exportDiv.appendChild(inputBox);
+    // Arabic output
+    const arLabel = document.createElement('div');
+    arLabel.style.cssText = 'font-size:10px;font-weight:900;color:#6b7280;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;';
+    arLabel.textContent = 'Arabic Script';
+    exportDiv.appendChild(arLabel);
+    const arBox = document.createElement('div');
+    arBox.style.cssText = 'background:white;padding:16px;border-radius:16px;font-size:26px;direction:rtl;text-align:right;margin-bottom:20px;border:1px solid #d1d5db;font-family:Amiri,serif;color:#1e293b;';
+    arBox.textContent = ar;
+    exportDiv.appendChild(arBox);
+    // Transliteration
+    const trLabel = document.createElement('div');
+    trLabel.style.cssText = 'font-size:10px;font-weight:900;color:#6b7280;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;';
+    trLabel.textContent = 'Transliteration';
+    exportDiv.appendChild(trLabel);
+    const trBox = document.createElement('div');
+    trBox.style.cssText = 'background:white;padding:16px;border-radius:16px;font-size:16px;font-style:italic;margin-bottom:20px;border:1px solid #d1d5db;color:#374151;';
+    trBox.textContent = tr;
+    exportDiv.appendChild(trBox);
+    // Arabizi
+    const abz = document.getElementById('outputArabizi').value.trim();
+    if (abz) {
+        const abzLabel = document.createElement('div');
+        abzLabel.style.cssText = 'font-size:10px;font-weight:900;color:#6b7280;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;';
+        abzLabel.textContent = 'Arabizi (Chat Style)';
+        exportDiv.appendChild(abzLabel);
+        const abzBox = document.createElement('div');
+        abzBox.style.cssText = 'background:#fff7ed;padding:16px;border-radius:16px;font-size:16px;font-family:monospace;margin-bottom:20px;border:1px solid #fed7aa;color:#9a3412;';
+        abzBox.textContent = abz;
+        exportDiv.appendChild(abzBox);
+    }
+    // Translation if visible
+    const transVisible = !translationContainer.classList.contains('hidden');
+    if (transVisible) {
+        const trnText = outputTranslation.innerText.trim();
+        if (trnText) {
+            const trnLabel = document.createElement('div');
+            trnLabel.style.cssText = 'font-size:10px;font-weight:900;color:#6b7280;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;';
+            trnLabel.textContent = 'Translation';
+            exportDiv.appendChild(trnLabel);
+            const trnBox = document.createElement('div');
+            trnBox.style.cssText = 'background:#faf5ff;padding:16px;border-radius:16px;font-size:14px;font-style:italic;margin-bottom:20px;border:1px solid #e9d5ff;color:#581c87;';
+            trnBox.textContent = trnText;
+            exportDiv.appendChild(trnBox);
+        }
+    }
+    // Footer
+    const footer = document.createElement('div');
+    footer.style.cssText = 'text-align:center;font-size:10px;color:#9ca3af;margin-top:8px;';
+    footer.textContent = '© Noor Transliterate v2 • Generated ' + new Date().toLocaleDateString();
+    exportDiv.appendChild(footer);
+    document.body.appendChild(exportDiv);
     showToast('🖼️ Generating image...');
-    html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true }).then(canvas => {
+    html2canvas(exportDiv, { backgroundColor: null, scale: 2, useCORS: true }).then(canvas => {
+        document.body.removeChild(exportDiv);
         const link = document.createElement('a');
         link.download = 'noor-transliteration.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
         showToast('✅ Image downloaded!');
-    }).catch(() => showToast('⚠️ Export failed'));
+    }).catch(() => { document.body.removeChild(exportDiv); showToast('⚠️ Export failed'); });
 }
 
 // =====================================================================
@@ -312,7 +384,7 @@ document.addEventListener('keydown', e => {
     else if (e.ctrlKey && e.key === 'm') { e.preventDefault(); startVoiceInput(); }
     else if (e.ctrlKey && e.key === '/') { e.preventDefault(); toggleShortcutsModal(); }
     else if (e.ctrlKey && e.key === 's') { e.preventDefault(); saveToHistory(); }
-    else if (e.key === 'Escape') { document.getElementById('shortcutsModal').classList.add('hidden'); }
+    else if (e.key === 'Escape') { document.getElementById('shortcutsModal').classList.add('hidden'); document.getElementById('settingsModal').classList.add('hidden'); hideSuggestions(); }
 });
 
 // =====================================================================
@@ -334,6 +406,7 @@ function setMode(mode) {
     mainInput.style.textAlign = isArabizi ? 'left' : 'right';
     mainInput.setAttribute('dir', isArabizi ? 'ltr' : 'rtl');
     inputLabel.textContent = isArabizi ? 'Arabizi Input (Latin → Arabic)' : mode === 'quran' ? 'Quran Arabic' : 'Input (Arabic / Arabizi)';
+    hideSuggestions();
     process();
 }
 
@@ -364,6 +437,21 @@ window.addEventListener('load', () => {
         const slider = document.getElementById('fontSizeSlider');
         if (slider) slider.value = savedSize;
     }
+
+    // Load suggestion setting
+    const sugSetting = localStorage.getItem('noor_suggestions');
+    if (sugSetting === 'off') {
+        suggestionsEnabled = false;
+        const cb = document.getElementById('settingSuggestions');
+        if (cb) cb.checked = false;
+    }
+
+    // Load auto-save setting
+    const asSetting = localStorage.getItem('noor_autosave');
+    if (asSetting === 'off') {
+        const cb = document.getElementById('settingAutoSave');
+        if (cb) cb.checked = false;
+    }
 });
 
 mainInput.addEventListener('input', () => {
@@ -372,6 +460,12 @@ mainInput.addEventListener('input', () => {
     document.getElementById('quranAudioBtn').classList.add('hidden');
     process();
     autoExpand(mainInput);
+    // Show suggestions in arabizi mode
+    if (currentMode === 'arabizi' && suggestionsEnabled) {
+        showSuggestions(mainInput.value);
+    } else {
+        hideSuggestions();
+    }
 });
 
 outputArabicEditable.addEventListener('input', () => {
@@ -384,5 +478,13 @@ outputArabicEditable.addEventListener('input', () => {
 let autoSaveTimer;
 mainInput.addEventListener('input', () => {
     clearTimeout(autoSaveTimer);
-    autoSaveTimer = setTimeout(autoSaveToHistory, 2000);
+    autoSaveTimer = setTimeout(() => { if (isAutoSaveEnabled()) autoSaveToHistory(); }, 2000);
+});
+
+// Close suggestions when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('suggestionsDropdown');
+    if (dropdown && !dropdown.contains(e.target) && e.target !== mainInput) {
+        hideSuggestions();
+    }
 });
