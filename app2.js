@@ -200,7 +200,7 @@ function addCustomDictEntry() {
     if (key.length > 100) { showToast('⚠️ Key too long (max 100 chars)'); return; }
     if (val.length > 200) { showToast('⚠️ Value too long (max 200 chars)'); return; }
     const d = getCustomDict();
-    if (Object.keys(d).length >= 500) { showToast('⚠️ Dictionary full (max 500 entries)'); return; }
+    if (!(key in d) && Object.keys(d).length >= 500) { showToast('⚠️ Dictionary full (max 500 entries)'); return; }
     d[key] = val; saveCustomDict(d);
     document.getElementById('customDictKey').value = '';
     document.getElementById('customDictValue').value = '';
