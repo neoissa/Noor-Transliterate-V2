@@ -15,13 +15,14 @@ async function fetchDailyAyah(forceNew) {
     try {
         const num = Math.floor(Math.random() * 6236) + 1;
         const r = await fetch(`https://api.alquran.cloud/v1/ayah/${num}/editions/quran-uthmani,en.sahih`);
+        if (!r.ok) throw new Error('API request failed');
         const d = await r.json();
         if (d.code === 200) {
             _dailyAyahData = { arabic: d.data[0].text, translation: d.data[1].text, surah: d.data[0].surah.englishName, number: d.data[0].surah.number, ayah: d.data[0].numberInSurah };
             sessionStorage.setItem('daily_ayah', JSON.stringify(_dailyAyahData));
             displayDailyAyah(_dailyAyahData);
         }
-    } catch (e) { console.log('Could not fetch daily ayah'); }
+    } catch (e) { console.log('Could not fetch daily ayah:', e.message); }
 }
 
 function displayDailyAyah(d) {
@@ -57,6 +58,7 @@ async function handleUnifiedSearch() {
         const refMatch = query.match(/^(\d+):(\d+)$/);
         if (refMatch) {
             const r = await fetch(`https://api.alquran.cloud/v1/ayah/${query}/editions/quran-uthmani,en.transliteration,${lang}`);
+            if (!r.ok) throw new Error('API request failed');
             const d = await r.json();
             if (d.code === 200) {
                 mainInput.value = d.data[0].text;
@@ -72,6 +74,7 @@ async function handleUnifiedSearch() {
             }
         } else {
             const r = await fetch(`https://api.alquran.cloud/v1/search/${query}/all/en.sahih`);
+            if (!r.ok) throw new Error('API request failed');
             const d = await r.json();
             quranResults.innerHTML = '';
             if (d.code === 200 && d.data.matches.length > 0) {
@@ -79,8 +82,18 @@ async function handleUnifiedSearch() {
                 d.data.matches.slice(0, 10).forEach(m => {
                     const div = document.createElement('div');
                     div.className = 'p-4 rounded-2xl border border-emerald-100 dark:border-emerald-800 cursor-pointer text-xs mb-2 transition-all bg-white dark:bg-slate-800 hover:border-emerald-500 shadow-sm';
-                    div.innerHTML = `<div class="font-black accent-text uppercase">${m.surah.englishName} (${m.surah.number}:${m.numberInSurah})</div><p class="text-slate-600 dark:text-slate-400 line-clamp-2 mt-1">${m.text}</p>`;
-                    div.onclick = () => { document.getElementById('quranKeyword').value = `${m.surah.number}:${m.numberInSurah}`; handleUnifiedSearch(); };
+
+                    const header = document.createElement('div');
+                    header.className = 'font-black accent-text uppercase';
+                    header.textContent = `${m.surah.englishName} (${m.surah.number}:${m.numberInSurah})`;
+
+                    const text = document.createElement('p');
+                    text.className = 'text-slate-600 dark:text-slate-400 line-clamp-2 mt-1';
+                    text.textContent = m.text;
+
+                    div.appendChild(header);
+                    div.appendChild(text);
+                    div.addEventListener('click', () => { document.getElementById('quranKeyword').value = `${m.surah.number}:${m.numberInSurah}`; handleUnifiedSearch(); });
                     quranResults.appendChild(div);
                 });
             } else {
@@ -95,14 +108,25 @@ async function handleUnifiedSearch() {
 async function fetchQuranMetadata() {
     try {
         const r = await fetch('https://api.alquran.cloud/v1/surah');
+        if (!r.ok) throw new Error('Failed to load Surah metadata');
         const d = await r.json(); surahData = d.data;
         const ss = document.getElementById('pickSurah');
         ss.innerHTML = '<option value="">Select Surah</option>';
-        surahData.forEach(s => { ss.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`; });
+        surahData.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.number;
+            opt.textContent = `${s.number}. ${s.englishName}`;
+            ss.appendChild(opt);
+        });
         const js = document.getElementById('pickJuz');
         js.innerHTML = '<option value="">Select Juz</option>';
-        for (let i = 1; i <= 30; i++) js.innerHTML += `<option value="${i}">Juz ${i}</option>`;
-    } catch (e) { console.error('Failed to load Surah metadata'); }
+        for (let i = 1; i <= 30; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = `Juz ${i}`;
+            js.appendChild(opt);
+        }
+    } catch (e) { console.error('Failed to load Surah metadata:', e.message); }
 }
 
 function handleJuzChange() { const j = document.getElementById('pickJuz').value; if (j) fetchVerseByRef(`juz/${j}/quran-uthmani`); }
@@ -173,7 +197,11 @@ function addCustomDictEntry() {
     const key = document.getElementById('customDictKey').value.trim().toLowerCase();
     const val = document.getElementById('customDictValue').value.trim();
     if (!key || !val) { showToast('⚠️ Both fields required'); return; }
-    const d = getCustomDict(); d[key] = val; saveCustomDict(d);
+    if (key.length > 100) { showToast('⚠️ Key too long (max 100 chars)'); return; }
+    if (val.length > 200) { showToast('⚠️ Value too long (max 200 chars)'); return; }
+    const d = getCustomDict();
+    if (Object.keys(d).length >= 500) { showToast('⚠️ Dictionary full (max 500 entries)'); return; }
+    d[key] = val; saveCustomDict(d);
     document.getElementById('customDictKey').value = '';
     document.getElementById('customDictValue').value = '';
     renderCustomDict(); showToast('📝 Entry added!');
@@ -187,8 +215,33 @@ function renderCustomDict() {
     entries.forEach(([k, v]) => {
         const div = document.createElement('div');
         div.className = 'flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm';
-        div.innerHTML = `<div class="flex gap-4 items-center"><span class="text-sm font-mono text-amber-600">${k}</span><span class="text-slate-300">→</span><span class="text-lg arabic-text text-slate-800 dark:text-white">${v}</span></div>
-            <button onclick="removeCustomDictEntry('${k}')" class="text-slate-300 hover:text-red-500 text-sm">✕</button>`;
+
+        const inner = document.createElement('div');
+        inner.className = 'flex gap-4 items-center';
+
+        const keySpan = document.createElement('span');
+        keySpan.className = 'text-sm font-mono text-amber-600';
+        keySpan.textContent = k;
+
+        const arrow = document.createElement('span');
+        arrow.className = 'text-slate-300';
+        arrow.textContent = '→';
+
+        const valSpan = document.createElement('span');
+        valSpan.className = 'text-lg arabic-text text-slate-800 dark:text-white';
+        valSpan.textContent = v;
+
+        inner.appendChild(keySpan);
+        inner.appendChild(arrow);
+        inner.appendChild(valSpan);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'text-slate-300 hover:text-red-500 text-sm';
+        delBtn.textContent = '✕';
+        delBtn.addEventListener('click', () => removeCustomDictEntry(k));
+
+        div.appendChild(inner);
+        div.appendChild(delBtn);
         list.appendChild(div);
     });
 }
@@ -226,7 +279,8 @@ function setAccentTheme(name) {
     document.documentElement.classList.add('theme-' + name);
     localStorage.setItem('accent_theme', name);
     document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active-accent'));
-    event.target.classList.add('active-accent');
+    const activeBtn = document.querySelector(`.accent-dot[title="${name.charAt(0).toUpperCase() + name.slice(1)}"]`);
+    if (activeBtn) activeBtn.classList.add('active-accent');
 }
 
 // =====================================================================

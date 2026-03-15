@@ -239,7 +239,7 @@ function convertWordToArabic(word) {
     let w = '', j = 0;
     const sk = Object.keys(chatToAr).sort((a, b) => b.length - a.length);
     if (word.startsWith('al-')) { w += 'ال'; j = 3; }
-    while (j < word.length) { let m = false; for (const k of sk) { if (word.substr(j, k.length) === k) { w += chatToAr[k]; j += k.length; m = true; break; } } if (!m) { w += word[j]; j++; } }
+    while (j < word.length) { let m = false; for (const k of sk) { if (word.substring(j, j + k.length) === k) { w += chatToAr[k]; j += k.length; m = true; break; } } if (!m) { w += word[j]; j++; } }
     return w;
 }
 
@@ -366,11 +366,35 @@ function renderHistory() {
     h.forEach((item, i) => {
         const div = document.createElement('div');
         div.className = 'flex items-start justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-amber-300 transition-all cursor-pointer shadow-sm group';
-        div.innerHTML = `<div class="flex-1 min-w-0" onclick="loadHistory('${item.arabic.replace(/'/g, "\\'")}')">` +
-            `<p class="text-xl arabic-text text-right text-slate-800 dark:text-white truncate">${item.arabic}</p>` +
-            `<p class="text-xs italic text-slate-500 dark:text-slate-400 mt-1 ltr truncate">${item.translit}</p>` +
-            `<p class="text-[10px] text-slate-300 dark:text-slate-600 mt-0.5">${item.timestamp}</p></div>` +
-            `<button onclick="deleteHistory(${i})" class="text-slate-300 hover:text-red-500 transition-colors text-lg flex-shrink-0 opacity-0 group-hover:opacity-100" title="Delete">🗑️</button>`;
+
+        const content = document.createElement('div');
+        content.className = 'flex-1 min-w-0';
+        content.addEventListener('click', () => loadHistory(item.arabic));
+
+        const pArabic = document.createElement('p');
+        pArabic.className = 'text-xl arabic-text text-right text-slate-800 dark:text-white truncate';
+        pArabic.textContent = item.arabic;
+
+        const pTranslit = document.createElement('p');
+        pTranslit.className = 'text-xs italic text-slate-500 dark:text-slate-400 mt-1 ltr truncate';
+        pTranslit.textContent = item.translit;
+
+        const pTime = document.createElement('p');
+        pTime.className = 'text-[10px] text-slate-300 dark:text-slate-600 mt-0.5';
+        pTime.textContent = item.timestamp;
+
+        content.appendChild(pArabic);
+        content.appendChild(pTranslit);
+        content.appendChild(pTime);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'text-slate-300 hover:text-red-500 transition-colors text-lg flex-shrink-0 opacity-0 group-hover:opacity-100';
+        delBtn.title = 'Delete';
+        delBtn.textContent = '🗑️';
+        delBtn.addEventListener('click', () => deleteHistory(i));
+
+        div.appendChild(content);
+        div.appendChild(delBtn);
         list.appendChild(div);
     });
 }
