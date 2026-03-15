@@ -321,10 +321,9 @@ function convertWordToArabic(word) {
     if (embeddedDictionary[lw]) return embeddedDictionary[lw];
     let w = '', j = 0;
     const sk = Object.keys(chatToAr).sort((a, b) => b.length - a.length);
-    if (word.startsWith('al-') || word.startsWith('ar-') || word.startsWith('as-') || word.startsWith('an-') || word.startsWith('at-') || word.startsWith('ad-') || word.startsWith('az-') || word.startsWith('ash-') || word.startsWith('adh-')) {
-        const prefixLen = word.startsWith('ash-') || word.startsWith('adh-') ? 4 : 3;
-        w += 'ال'; j = prefixLen;
-    }
+    const arabicPrefixes = ['ash-', 'adh-', 'al-', 'ar-', 'as-', 'an-', 'at-', 'ad-', 'az-'];
+    const matchedPrefix = arabicPrefixes.find(p => word.startsWith(p));
+    if (matchedPrefix) { w += 'ال'; j = matchedPrefix.length; }
     while (j < word.length) { let m = false; for (const k of sk) { if (word.substring(j, j + k.length) === k) { w += chatToAr[k]; j += k.length; m = true; break; } } if (!m) { w += word[j]; j++; } }
     return w;
 }
